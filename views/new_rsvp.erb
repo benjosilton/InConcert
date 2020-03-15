@@ -1,20 +1,19 @@
 <h2>
     <i class="far fa-calendar-alt"></i>
-    <%= @event[:date] %>
+    <%= @showup[:date] %>
 </h2>
-<h1>RSVP for <%= @event[:title] %></h1>
+<h1>Show Up for <%= @showup[:title] %></h1>
 
-<form action="/events/<%= @event[:id] %>/rsvps/create" method="post">
+<form action="/showups/<%= @showup[:id] %>/rsvps/create" method="post">
   <div class="form-group">
-    <label>Are you going?</label>
+    <label>I'm showing up!</label>
     <select class="form-control" name="going">
       <option value="1">Yes</option>
-      <option value="0">No</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label>Comments</label>
+    <label>Notes</label>
     <textarea class="form-control" rows="3" name="comments"></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

@@ -1,0 +1,5 @@
+<h1>All ShowUps</h1>
+
+<% for showup in @showups %>
+    <p><a href="/showups/<%= showup[:id] %>"><%= showup[:location] %></a></p>
+<% end %>

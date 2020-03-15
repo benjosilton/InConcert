@@ -1,12 +1,12 @@
 <h2>
     <i class="far fa-calendar-alt"></i>
-    <%= @event[:date] %>
+    <%= @showup[:date] %>
 </h2>
-<h1>Edit RSVP for <%= @event[:title] %></h1>
+<h1>Edit RSVP for <%= @showup[:title] %></h1>
 
 <form action="/rsvps/<%= @rsvp[:id] %>/update" method="post">
   <div class="form-group">
-    <label>Are you going?</label>
+    <label>Are you showing up?</label>
     <select class="form-control" name="going">
       <% if @rsvp[:going] %>
         <option value="1" selected>Yes</option>
@@ -18,9 +18,5 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label>Comments</label>
-    <textarea class="form-control" rows="3" name="comments"><%= @rsvp[:comments] %></textarea>
-  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

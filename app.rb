@@ -15,7 +15,7 @@ before { puts; puts "--------------- NEW REQUEST ---------------"; puts }       
 after { puts; }                                                                       #
 #######################################################################################
 
-events_table = DB.from(:events)
+showups_table = DB.from(:showups)
 rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
@@ -23,53 +23,52 @@ before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
 end
 
-# homepage and list of events (aka "index")
+# homepage and list of showups (aka "index")
 get "/" do
     puts "params: #{params}"
 
-    @events = events_table.all.to_a
-    pp @events
+    @showups = showups_table.all.to_a
+    pp @showups
 
-    view "events"
+    view "showups"
 end
 
-# event details (aka "show")
-get "/events/:id" do
+# showup details (aka "show")
+get "/showups/:id" do
     puts "params: #{params}"
 
     @users_table = users_table
-    @event = events_table.where(id: params[:id]).to_a[0]
-    pp @event
+    @showup = showups_table.where(id: params[:id]).to_a[0]
+    pp @showup
 
-    @rsvps = rsvps_table.where(event_id: @event[:id]).to_a
-    @going_count = rsvps_table.where(event_id: @event[:id], going: true).count
+    @rsvps = rsvps_table.where(showup_id: @showup[:id]).to_a
+    @going_count = rsvps_table.where(showup_id: @showup[:id], going: true).count
 
-    view "event"
+    view "showup"
 end
 
 # display the rsvp form (aka "new")
-get "/events/:id/rsvps/new" do
+get "/showups/:id/rsvps/new" do
     puts "params: #{params}"
 
-    @event = events_table.where(id: params[:id]).to_a[0]
+    @showup = showups_table.where(id: params[:id]).to_a[0]
     view "new_rsvp"
 end
 
 # receive the submitted rsvp form (aka "create")
-post "/events/:id/rsvps/create" do
+post "/showups/:id/rsvps/create" do
     puts "params: #{params}"
 
-    # first find the event that rsvp'ing for
-    @event = events_table.where(id: params[:id]).to_a[0]
+    # first find the showup that rsvp'ing for
+    @showup = showups_table.where(id: params[:id]).to_a[0]
     # next we want to insert a row in the rsvps table with the rsvp form data
     rsvps_table.insert(
-        event_id: @event[:id],
+        showup_id: @showup[:id],
         user_id: session["user_id"],
-        comments: params["comments"],
         going: params["going"]
     )
 
-    redirect "/events/#{@event[:id]}"
+    redirect "/showups/#{@showup[:id]}"
 end
 
 # display the rsvp form (aka "edit")
@@ -77,7 +76,7 @@ get "/rsvps/:id/edit" do
     puts "params: #{params}"
 
     @rsvp = rsvps_table.where(id: params["id"]).to_a[0]
-    @event = events_table.where(id: @rsvp[:event_id]).to_a[0]
+    @showup = showups_table.where(id: @rsvp[:showup_id]).to_a[0]
     view "edit_rsvp"
 end
 
@@ -87,16 +86,15 @@ post "/rsvps/:id/update" do
 
     # find the rsvp to update
     @rsvp = rsvps_table.where(id: params["id"]).to_a[0]
-    # find the rsvp's event
-    @event = events_table.where(id: @rsvp[:event_id]).to_a[0]
+    # find the rsvp's showup
+    @showup = showups_table.where(id: @rsvp[:showup_id]).to_a[0]
 
     if @current_user && @current_user[:id] == @rsvp[:id]
         rsvps_table.where(id: params["id"]).update(
             going: params["going"],
-            comments: params["comments"]
         )
 
-        redirect "/events/#{@event[:id]}"
+        redirect "/showups/#{@showup[:id]}"
     else
         view "error"
     end
@@ -107,11 +105,11 @@ get "/rsvps/:id/destroy" do
     puts "params: #{params}"
 
     rsvp = rsvps_table.where(id: params["id"]).to_a[0]
-    @event = events_table.where(id: rsvp[:event_id]).to_a[0]
+    @showup = showups_table.where(id: rsvp[:showup_id]).to_a[0]
 
     rsvps_table.where(id: params["id"]).delete
 
-    redirect "/events/#{@event[:id]}"
+    redirect "/showups/#{@showup[:id]}"
 end
 
 # display the signup form (aka "new")

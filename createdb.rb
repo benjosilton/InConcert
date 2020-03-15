@@ -7,19 +7,21 @@ DB ||= Sequel.connect(connection_string)                                        
 # Database schema - this should reflect your domain model
 
 # New domain model - adds users
-DB.create_table! :events do
+DB.create_table! :showups do
   primary_key :id
-  String :title
-  String :description, text: true
+  String :artists
   String :date
-  String :location
+  String :venue
+  String :photo
+  String :pregame_loc
+  String :pregame_time
+  String :pregame_desc, text: true
 end
 DB.create_table! :rsvps do
   primary_key :id
-  foreign_key :event_id
   foreign_key :user_id
+  foreign_key :showup_id
   Boolean :going
-  String :comments, text: true
 end
 DB.create_table! :users do
   primary_key :id
@@ -29,14 +31,14 @@ DB.create_table! :users do
 end
 
 # Insert initial (seed) data
-events_table = DB.from(:events)
+showups_table = DB.from(:showups)
 
-events_table.insert(title: "Bacon Burger Taco Fest", 
+showups_table.insert(title: "Bacon Burger Taco Fest", 
                     description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
                     date: "June 21",
                     location: "Kellogg Global Hub")
 
-events_table.insert(title: "Kaleapolooza", 
+showups_table.insert(title: "Kaleapolooza", 
                     description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
                     date: "July 4",
                     location: "Nowhere")

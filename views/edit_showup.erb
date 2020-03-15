@@ -1,0 +1,38 @@
+<h2>
+    <i class="far fa-calendar-alt"></i>
+    <%= @showup[:date] %>
+</h2>
+<h1>Edit ShowUp for <%= @showup[:pregame_loc] %></h1>
+
+<form action="/showups/<%= @showup[:id] %>/update" method="post">
+  <div class="form-group">
+    <label>Artists</label>
+    <input type="text" class="form-control" placeholder="<%= @showup[:artists] %>" name="artists" required>
+  </div>
+  <div class="form-group">
+    <label>Date</label>
+    <input type="text" class="form-control" placeholder="<%= @showup[:date] %>" name="date" required>
+  </div>
+  <div class="form-group">
+    <label>Venue</label>
+    <input type="text" class="form-control" placeholder="<%= @showup[:venue] %>" name="venue" required>
+  </div>
+  <div class="form-group">
+    <label>Concert Photo URL (Optional)</label>
+    <input type="url" class="form-control" placeholder="<%= @showup[:photo] %>" name="photo">
+  </div>
+  <div class="form-group">
+    <label>Pregame Location</label>
+    <input type="text" class="form-control" placeholder="<%= @showup[:pregame_loc] %>" name="pregame_loc" required>
+  </div>
+  <div class="form-group">
+    <label>Pregame Time</label>
+    <input type="text" class="form-control" placeholder="<%= @showup[:pregame_time] %>" name="pregame_time" required>
+  </div>
+  <div class="form-group">
+    <label>Pregame Description</label>
+    <input type="text" class="form-control" placeholder="<%= @showup[:pregame_desc] %>" name="pregame_desc">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

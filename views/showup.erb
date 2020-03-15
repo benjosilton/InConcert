@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-sm-8">
         <img src=<%= @showup[:photo] %> alt=<%=@showup[:artists] %> height="250">
@@ -10,13 +11,6 @@
         <h3><br>ShowUp pregame at <%= @showup[:pregame_loc] %><br></h3>
         <p><%= @showup[:pregame_desc] %></p>
 
-        <p class="mt-5">
-            <% if @current_user %>
-                <a href="/showups/<%= @showup[:id] %>/rsvps/new" class="btn btn-primary">RSVP now!</a>
-            <% else %>
-                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
-            <% end %>
-        </p>
     </div>
 
     <div class="col-sm-4">
@@ -32,6 +26,7 @@
                         <small>
                             <!-- only show these links if it's my rsvp -->
                             <% if @current_user && @current_user[:id] == rsvp[:user_id] %>
+                                <% @user_going = 1 %>
                                 (<a href="/rsvps/<%= rsvp[:id] %>/edit">edit</a> | <a href="/rsvps/<%= rsvp[:id] %>/destroy">delete</a>)
                             <% end %>
                         </small>
@@ -42,3 +37,13 @@
         <% end %>
     </div>
 </div>
+
+<p class="mt-5">
+    <% if @user_going %>
+        <a href="/showups/<%= @showup[:id] %>/rsvps/edit" class="btn btn-primary">Edit RSVP</a>
+    <% elsif @current_user %>
+        <a href="/showups/<%= @showup[:id] %>/rsvps/new" class="btn btn-primary">RSVP now!</a>
+    <% else %>
+        <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
+    <% end %>
+ </p>

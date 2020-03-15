@@ -1,6 +1,18 @@
-<h1>All ShowUps</h1>
 
-<br>
+<div class="container">
+<div class="row my-6">
+<div class="col-md-9">
+<h1>All ShowUps</h1>
+</div>
+<div class="col-md-3">
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="/showups/new" role="button">Create a ShowUp</a>
+  </p>
+  </div>
+  </div>
+</div>
+
+<br><br><br>
 
 <div class="container">
 <% for showup in @showups %>
@@ -8,7 +20,7 @@
 <div class="col-md-3">
 <img src=<%= showup[:photo] %> alt=<%=showup[:artists] %> height="150">
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
 <h3><%= showup[:artists] %>
 </div>
 <div class="col-md-2">
@@ -17,6 +29,11 @@
 <div class="col-md-3">
 <h5><a href="/showups/<%= showup[:id] %>"><%= showup[:pregame_loc] %></a></p>
 </h5>
+</div>
+<div class="col-md-1">
+<% if @current_user && @current_user[:id] == showup[:user_id] %>
+(<a href="/showups/<%= showup[:id] %>/edit">edit</a> | <a href="/showups/<%= showup[:id] %>/destroy">delete</a>)
+<% end %>
 </div>
 </div>
 <br>

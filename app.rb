@@ -28,6 +28,10 @@ get "/" do
     view "home"
 end
 
+get "/showups/new" do
+    view "new_showup"
+end
+
 get "/showups" do
     puts "params: #{params}"
 
@@ -66,9 +70,52 @@ post "/showups/create" do
             pregame_time: params["pregame_time"],
             pregame_desc: params["pregame_desc"]
         )
+        view "create_showup"
     else
         redirect "/logins/new"
     end
+end
+
+# display the showup form (aka "edit")
+get "/showups/:id/edit" do
+    puts "params: #{params}"
+
+    @showup = showups_table.where(id: params["id"]).to_a[0]
+    view "edit_showup"
+end
+
+# receive the updated showup info (aka "update")
+post "/showups/:id/update" do
+    puts "params: #{params}"
+
+    # find the showup to update
+    @showup = showups_table.where(id: params["id"]).to_a[0]
+
+    if @current_user && @current_user[:id] == @showup[:user_id]
+        showups_table.where(id: params["id"]).update(
+            artists: params["artists"],
+            date: params["date"],
+            venue: params["venue"],
+            photo: params["photo"],
+            pregame_loc: params["pregame_loc"],
+            pregame_time: params["pregame_time"],
+            pregame_desc: params["pregame_desc"]
+        )
+        redirect "/showups/#{@showup[:id]}"
+    else
+        view "error"
+    end
+end
+
+# delete the showup (aka "destroy")
+get "/showups/:id/destroy" do
+    puts "params: #{params}"
+
+    showup = showups_table.where(id: params["id"]).to_a[0]
+
+    showups_table.where(id: params["id"]).delete
+
+    redirect "/showups"
 end
 
 # display the rsvp form (aka "new")
@@ -89,7 +136,7 @@ post "/showups/:id/rsvps/create" do
     rsvps_table.insert(
         showup_id: @showup[:id],
         user_id: session["user_id"],
-        going: params["going"]
+        going: "1"
     )
 
     redirect "/showups/#{@showup[:id]}"
@@ -164,7 +211,7 @@ end
 # display the login form (aka "new")
 get "/logins/new" do
     @user = users_table.where(email: params["email"]).to_a[0]
-        view "new_login"
+    view "new_login"
 end
 
 # receive the submitted login form (aka "create")

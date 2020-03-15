@@ -2,7 +2,7 @@
     <i class="far fa-calendar-alt"></i>
     <%= @showup[:date] %>
 </h2>
-<h1>Edit RSVP for <%= @showup[:title] %></h1>
+<h1>Edit RSVP for <%= @showup[:pregame_loc] %></h1>
 
 <form action="/rsvps/<%= @rsvp[:id] %>/update" method="post">
   <div class="form-group">

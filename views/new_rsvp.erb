@@ -2,19 +2,10 @@
     <i class="far fa-calendar-alt"></i>
     <%= @showup[:date] %>
 </h2>
-<h1>Show Up for <%= @showup[:title] %></h1>
+<h3><br>
+Show Up for <%= @showup[:artists] %> pregame at <%= @showup[:pregame_loc] %>?
+<br><br></h3>
 
 <form action="/showups/<%= @showup[:id] %>/rsvps/create" method="post">
-  <div class="form-group">
-    <label>I'm showing up!</label>
-    <select class="form-control" name="going">
-      <option value="1">Yes</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label>Notes</label>
-    <textarea class="form-control" rows="3" name="comments"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Register!</button>
 </form>

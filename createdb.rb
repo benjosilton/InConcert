@@ -9,6 +9,7 @@ DB ||= Sequel.connect(connection_string)                                        
 # New domain model - adds users
 DB.create_table! :showups do
   primary_key :id
+  foreign_key :user_id
   String :artists
   String :date
   String :venue
@@ -35,6 +36,7 @@ end
 showups_table = DB.from(:showups)
 
 showups_table.insert(artists: "The Arcadian Wild",
+    user_id: "1",
     date: "April 9",
     venue: "Tonic Room",
     photo: "https://photos.bandsintown.com/thumb/9697294.jpeg",
@@ -44,6 +46,7 @@ showups_table.insert(artists: "The Arcadian Wild",
 )
 
 showups_table.insert(artists: "Trevor Hall & Brett Dennen",
+    user_id: "1",
     date: "April 23",
     venue: "Vic Theatre",
     photo: "https://img-dev.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F84167535%2F313967227138%2F1%2Foriginal.20191210-205030?auto=compress&fit=clip&h=&w=650&s=9c23c6fc9d7f72f1af57731f15ec8b3f",

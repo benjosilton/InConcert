@@ -93,6 +93,7 @@ post "/showups/:id/update" do
 
     if @current_user && @current_user[:id] == @showup[:user_id]
         showups_table.where(id: params["id"]).update(
+            user_id: @current_user[:id],
             artists: params["artists"],
             date: params["date"],
             venue: params["venue"],
@@ -195,7 +196,7 @@ post "/users/create" do
     # if there's already a user with this email, skip!
     existing_user = users_table.where(email: params["email"]).to_a[0]
     if existing_user
-        view "error"
+        view "/"
     else
         users_table.insert(
             name: params["name"],
@@ -203,8 +204,7 @@ post "/users/create" do
             fb_page: params["fb_page"],
             password: BCrypt::Password.create(params["password"])
         )
-
-        redirect "/logins/new"
+        redirect "/"
     end
 end
 

@@ -25,6 +25,10 @@ end
 
 # homepage and list of showups (aka "index")
 get "/" do
+    view "home"
+end
+
+get "/showups" do
     puts "params: #{params}"
 
     @showups = showups_table.all.to_a

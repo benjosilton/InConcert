@@ -2,16 +2,20 @@
 
 <form action="/users/create" method="post">
   <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name">
+    <label>Name (required)</label>
+    <input type="text" class="form-control" name="name" required>
   </div>
   <div class="form-group">
-    <label>Email</label>
-    <input type="email" class="form-control" placeholder="name@example.com" name="email">
+    <label>Email (required)</label>
+    <input type="email" class="form-control" placeholder="name@example.com" name="email" required>
+  </div>
+    <div class="form-group">
+    <label>Facebook Page (Optional)</label>
+    <input type="url" class="form-control" placeholder="www.facebook.com/your.name" name="fb_page">
   </div>
   <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" name="password">
+    <label>Password (required)</label>
+    <input type="password" class="form-control" name="password" required>
   </div>
   <button type="submit" class="btn btn-primary">Sign Up</button>
 </form>

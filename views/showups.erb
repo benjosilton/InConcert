@@ -1,5 +1,25 @@
 <h1>All ShowUps</h1>
 
+<br>
+
+<div class="container">
 <% for showup in @showups %>
-    <p><a href="/showups/<%= showup[:id] %>"><%= showup[:location] %></a></p>
+<div class="row my-6">
+<div class="col-md-3">
+<img src=<%= showup[:photo] %> alt=<%=showup[:artists] %> height="150">
+</div>
+<div class="col-md-4">
+<h3><%= showup[:artists] %>
+</div>
+<div class="col-md-2">
+<h4><%= showup[:date] %></h4>
+</div>
+<div class="col-md-3">
+<h5><a href="/showups/<%= showup[:id] %>"><%= showup[:pregame_loc] %></a></p>
+</h5>
+</div>
+</div>
+<br>
 <% end %>
+</div>
+<br><br>

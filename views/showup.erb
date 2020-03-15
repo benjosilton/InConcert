@@ -1,33 +1,15 @@
 <div class="row">
-    <div class="col-sm-9">
-        <h2>
+    <div class="col-sm-8">
+        <img src=<%= @showup[:photo] %> alt=<%=@showup[:artists] %> height="250">
+        <br>
+        <h2><br>
             <i class="far fa-calendar-alt"></i>
             <%= @showup[:date] %>
         </h2>
-        <h1><%= @showup[:title] %></h1>
-        <p><%= @showup[:description] %></p>
+        <h1><br><%= @showup[:artists] %></h1>
+        <h3><br>ShowUp pregame at <%= @showup[:pregame_loc] %><br></h3>
+        <p><%= @showup[:pregame_desc] %></p>
 
-        <% for rsvp in @rsvps %>
-            <div class="media">
-                <% if rsvp[:going] %>
-                    <i class="fas fa-thumbs-up fa-3x mr-3"></i>
-                <% else %>
-                    <i class="fas fa-thumbs-down fa-3x mr-3"></i>
-                <% end %>
-                <div class="media-body">
-                    <h5 class="mt-0">
-                        <%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %>
-
-                        <small>
-                            <!-- only show these links if it's my rsvp -->
-                            <% if @current_user && @current_user[:id] == rsvp[:user_id] %>
-                                (<a href="/rsvps/<%= rsvp[:id] %>/edit">edit</a> | <a href="/rsvps/<%= rsvp[:id] %>/destroy">delete</a>)
-                            <% end %>
-                        </small>
-                    </h5>
-                </div>
-            </div>
-        <% end %>
         <p class="mt-5">
             <% if @current_user %>
                 <a href="/showups/<%= @showup[:id] %>/rsvps/new" class="btn btn-primary">RSVP now!</a>
@@ -36,12 +18,27 @@
             <% end %>
         </p>
     </div>
-    <div class="col-sm-3">
-        <h3>When?</h3>
-        <p><%= @showup[:date] %></p>
-        <h3>Where?</h3>
-        <p><%= @showup[:location] %></p>
-        <h3>How many fans so far?</h3>
-        <p><%= @going_count %></p>
+
+    <div class="col-sm-4">
+        <h3>Fans Signed Up: <%= @going_count %><br><br></h3>
+        <% for rsvp in @rsvps %>
+            <div class="media">
+                <% if rsvp[:going] %>
+                <p><br><p>
+                    <i class="fas fa-thumbs-up fa-3x mr-3"></i>
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %>
+                        <small>
+                            <!-- only show these links if it's my rsvp -->
+                            <% if @current_user && @current_user[:id] == rsvp[:user_id] %>
+                                (<a href="/rsvps/<%= rsvp[:id] %>/edit">edit</a> | <a href="/rsvps/<%= rsvp[:id] %>/destroy">delete</a>)
+                            <% end %>
+                        </small>
+                    </h5>
+                </div>
+                <% end %>
+            </div>
+        <% end %>
     </div>
 </div>

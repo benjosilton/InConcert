@@ -1,0 +1,34 @@
+<h1>Plan Your Own ShowUp</h1>
+
+<form action="/showups/create" method="post">
+  <div class="form-group">
+    <label>Artists</label>
+    <input type="text" class="form-control" name="artists" required>
+  </div>
+  <div class="form-group">
+    <label>Date</label>
+    <input type="text" class="form-control" placeholder="April 1" name="date" required>
+  </div>
+  <div class="form-group">
+    <label>Venue</label>
+    <input type="text" class="form-control" placeholder="Venue Name" name="venue" required>
+  </div>
+  <div class="form-group">
+    <label>Concert Photo URL (Optional)</label>
+    <input type="url" class="form-control" placeholder="www.venuename.com/photopath" name="photo">
+  </div>
+  <div class="form-group">
+    <label>Pregame Location</label>
+    <input type="text" class="form-control" name="pregame_loc" required>
+  </div>
+  <div class="form-group">
+    <label>Pregame Time</label>
+    <input type="text" class="form-control" name="pregame_time" required>
+  </div>
+  <div class="form-group">
+    <label>Pregame Description</label>
+    <input type="text" class="form-control" placeholder="Tell everyone what you'll be doing and how to find you!" name="pregame_desc">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create ShowUp!</button>
+</form>

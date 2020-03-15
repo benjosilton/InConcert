@@ -47,6 +47,26 @@ get "/showups/:id" do
     view "showup"
 end
 
+# receive the submitted showup creation form (aka "create showup")
+post "/showups/create" do
+    puts "params: #{params}"
+
+    # if user isn't logged in, take them to login page
+    if @current_user
+        showups_table.insert(
+            artists: params["artists"],
+            date: params["date"],
+            venue: params["venue"],
+            photo: params["photo"],
+            pregame_loc: params["pregame_loc"],
+            pregame_time: params["pregame_time"],
+            pregame_desc: params["pregame_desc"]
+        )
+    else
+        redirect "/logins/new"
+    end
+end
+
 # display the rsvp form (aka "new")
 get "/showups/:id/rsvps/new" do
     puts "params: #{params}"
@@ -129,6 +149,7 @@ post "/users/create" do
         users_table.insert(
             name: params["name"],
             email: params["email"],
+            fb_page: params["fb_page"],
             password: BCrypt::Password.create(params["password"])
         )
 
@@ -138,7 +159,8 @@ end
 
 # display the login form (aka "new")
 get "/logins/new" do
-    view "new_login"
+    @user = users_table.where(email: params["email"]).to_a[0]
+        view "new_login"
 end
 
 # receive the submitted login form (aka "create")

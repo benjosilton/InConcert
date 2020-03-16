@@ -20,9 +20,9 @@ rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
 # put your API credentials here (found on your Twilio dashboard)
-account_sid = ENV["AC3d0a92793c3bb358a22aa115d3a195f8"]
-auth_token = ENV["da4afdcb02efd47eb60c21843a30154d"]
-client = Twilio::REST::Client.new(account_sid, auth_token)
+@account_sid = ENV["account_sid"]
+@auth_token = ENV["auth_token"]
+@client = Twilio::REST::Client.new(@account_sid, @auth_token)
 
 before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
@@ -213,7 +213,7 @@ post "/users/create" do
         )
 
         #notify me that there is a new user
-        client.messages.create(
+        @client.messages.create(
         from: "+12065392752", 
         to: "+15083979062",
         body: "A new user has signed up on InConcert!"

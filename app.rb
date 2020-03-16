@@ -19,6 +19,11 @@ showups_table = DB.from(:showups)
 rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
+# put your API credentials here (found on your Twilio dashboard)
+account_sid = ENV["AC3d0a92793c3bb358a22aa115d3a195f8"]
+auth_token = ENV["da4afdcb02efd47eb60c21843a30154d"]
+client = Twilio::REST::Client.new(account_sid, auth_token)
+
 before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
 end
@@ -62,6 +67,7 @@ post "/showups/create" do
     # if user isn't logged in, take them to login page
     if @current_user
         showups_table.insert(
+            user_id: @current_user[:id],
             artists: params["artists"],
             date: params["date"],
             venue: params["venue"],
@@ -198,14 +204,37 @@ post "/users/create" do
     if existing_user
         view "/"
     else
+        #enter new user in database
         users_table.insert(
             name: params["name"],
             email: params["email"],
             fb_page: params["fb_page"],
             password: BCrypt::Password.create(params["password"])
         )
+
+        #notify me that there is a new user
+        client.messages.create(
+        from: "+12065392752", 
+        to: "+15083979062",
+        body: "A new user has signed up on InConcert!"
+        )
+
         redirect "/"
     end
+end
+
+# user details (profile page)
+get "/users/:id" do
+    #puts "params: #{params}"
+
+    @users_table = users_table
+    @user = users_table.where(id: params[:id]).to_a[0]
+    #pp @user
+
+    @going_count = rsvps_table.where(user_id: @user[:id], going: true).count
+    @hosted_count = showups_table.where(user_id: @user[:id]).count
+
+    view "user_profile"
 end
 
 # display the login form (aka "new")

@@ -23,7 +23,8 @@
                     <i class="fas fa-thumbs-up fa-3x mr-3"></i>
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %>
+                        <a href="/users/<%= rsvp[:user_id] %>">
+                        <%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %></a>
                         <small>
                             <!-- only show these links if it's my rsvp -->
                             <% if @current_user && @current_user[:id] == rsvp[:user_id] %>

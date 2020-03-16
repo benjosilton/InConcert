@@ -1,9 +1,15 @@
-
-
 .jumbotron {
-  background-image: url(‘https://res.cloudinary.com/dhh19fozh/q_auto:good,f_auto,dpr_1.0/w_auto:breakpoints_85_850_10_10:810/jb7production-uploads/2019/12/reggae-rise-up-vegas-2020-1200x632.jpg‘);
-  background-size: cover;
-  text-align: center;
+    align-content: center;
+    text-align: center;
+    width: 80%;
+    color: white;
+    min-height: 250px;
+    /* Background */
+    background-attachment: fixed;
+    background-image: url(‘https://res.cloudinary.com/dhh19fozh/q_auto:good,f_auto,dpr_1.0/w_auto:breakpoints_85_850_10_10:810/jb7production-uploads/2019/12/reggae-rise-up-vegas-2020-1200x632.jpg‘);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position-x: center;
 }
 
 .h9 {
@@ -11,3 +17,63 @@
     color: white;
     font-style: bold;
 }
+
+
+h1 {
+color: #111111;
+font-size: 60px;
+font-family: 'Raleway', sans-serif;
+text-align:left;
+margin-left:10px;
+margin-right:10px;
+padding-left:10px;
+padding-right:10px;
+width: 60%;
+}
+
+h2 {
+    color: #111111;
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+    text-align:left;
+    margin-left:10px;
+    margin-right:10px;
+    padding-left:10px;
+    padding-right:10px;
+    }
+
+h3 {
+    font-family: 'Raleway', sans-serif;
+    font-size:20px;
+    color: #111111;
+    text-align:left;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.container {
+width: 100%;
+align-self:center;
+padding-left:12px;
+padding-right:12px;
+text-align:left;
+vertical-align: middle;
+}
+
+.row {
+border-bottom-width: 2px;
+border-bottom-style: solid;
+border-bottom-color: #B0B0B0;
+}
+
+.col-md-4 {
+padding-left:12px;
+padding-right:12px;
+text-align: center;
+vertical-align: middle;
+}
+
+p {
+    text-align: center;
+    font-family: 'Raleway';
+    }
